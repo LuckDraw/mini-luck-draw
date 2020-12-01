@@ -1,0 +1,7 @@
+<canvas
+  type="2d"
+  id="lucky-grid"
+  canvas-id="lucky-grid"
+  bindtouchstart="toPlay"
+  style="width: {{width}}; height: {{height}}"
+></canvas>

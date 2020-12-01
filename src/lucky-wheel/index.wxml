@@ -1,0 +1,7 @@
+<canvas
+  type="2d"
+  id="lucky-wheel"
+  canvas-id="lucky-wheel"
+  bindtouchstart="toPlay"
+  style="width: {{width}}; height: {{height}}"
+></canvas>
