@@ -59,12 +59,12 @@ Component({
       const button = this.data.button
       if (!button) return
       ctx.beginPath()
-      ctx.rect(...this.$lucky.getGeometricProperty(
+      ctx.rect(...this.$lucky.getGeometricProperty([
         button.x,
         button.y,
         button.col || 1,
-        button.row || 1,
-      ))
+        button.row || 1
+      ]))
       if (!ctx.isPointInPath(e.changedTouches[0].x * this.dpr, e.changedTouches[0].y * this.dpr)) {
         return
       }

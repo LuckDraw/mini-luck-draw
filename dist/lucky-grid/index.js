@@ -157,8 +157,10 @@ Component({
   methods: {
     toPlay: function toPlay(e) {
       var ctx = this.ctx;
+      var button = this.data.button;
+      if (!button) return;
       ctx.beginPath();
-      ctx.arc(0, 0, this.$lucky.maxBtnRadius, 0, Math.PI * 2, false);
+      ctx.rect.apply(ctx, this.$lucky.getGeometricProperty([button.x, button.y, button.col || 1, button.row || 1]));
       if (!ctx.isPointInPath(e.changedTouches[0].x * this.dpr, e.changedTouches[0].y * this.dpr)) {
         return;
       }
