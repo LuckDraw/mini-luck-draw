@@ -1,7 +1,7 @@
 .idea
 .DS_Store
 package-lock.json
-
+src
 logs
 *.log
 npm-debug.log*

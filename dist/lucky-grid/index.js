@@ -89,7 +89,7 @@ module.exports =
 /* 0 */
 /***/ (function(module, exports) {
 
-module.exports = require("lucky-canvas");
+module.exports = require("../../../lucky-canvas");
 
 /***/ }),
 /* 1 */,
@@ -154,20 +154,6 @@ Component({
       value: function value() {}
     }
   },
-  methods: {
-    toPlay: function toPlay(e) {
-      var ctx = this.ctx;
-      var button = this.data.button;
-      if (!button) return;
-      ctx.beginPath();
-      ctx.rect.apply(ctx, this.$lucky.getGeometricProperty([button.x, button.y, button.col || 1, button.row || 1]));
-      if (!ctx.isPointInPath(e.changedTouches[0].x * this.dpr, e.changedTouches[0].y * this.dpr)) {
-        return;
-      }
-      // 触发 lucky-canvas 的抽奖逻辑
-      this.$lucky.startCallback();
-    }
-  },
   ready: function ready() {
     var _this = this;
 
@@ -186,10 +172,14 @@ Component({
       canvas.width = res[0].width * dpr;
       canvas.height = res[0].height * dpr;
       ctx.scale(dpr, dpr);
-      var $lucky = _this.$lucky = new _luckyCanvas.LuckyGrid({
+      _this.$lucky = new _luckyCanvas.LuckyGrid({
+        flag: 'MINI-WX',
         ctx: ctx,
         width: res[0].width,
-        height: res[0].height
+        height: res[0].height,
+        rAF: res[0].node.requestAnimationFrame,
+        setInterval: setInterval,
+        clearInterval: clearInterval
       }, {
         rows: data.rows,
         cols: data.cols,
@@ -200,18 +190,46 @@ Component({
         defaultStyle: data.defaultStyle,
         activeStyle: data.activeStyle,
         start: function start() {
-          _this.triggerEvent('start');
+          for (var _len = arguments.length, rest = Array(_len), _key = 0; _key < _len; _key++) {
+            rest[_key] = arguments[_key];
+          }
+
+          _this.triggerEvent.apply(_this, ['start'].concat(rest));
         },
-        end: function end(prize) {
-          _this.triggerEvent('end', prize);
+        end: function end() {
+          for (var _len2 = arguments.length, rest = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+            rest[_key2] = arguments[_key2];
+          }
+
+          _this.triggerEvent.apply(_this, ['end'].concat(rest));
         }
       });
-      // 覆盖window对象的一些方法
-      $lucky.rAF = res[0].node.requestAnimationFrame;
-      $lucky.cAF = res[0].node.cancelAnimationFrame;
-      $lucky.setInterval = setInterval;
-      $lucky.clearInterval = clearInterval;
     });
+  },
+
+  methods: {
+    toPlay: function toPlay(e) {
+      var ctx = this.ctx;
+      var button = this.data.button;
+      if (!button) return;
+      ctx.beginPath();
+      ctx.rect.apply(ctx, this.$lucky.getGeometricProperty([button.x, button.y, button.col || 1, button.row || 1]));
+      if (!ctx.isPointInPath(e.changedTouches[0].x * this.dpr, e.changedTouches[0].y * this.dpr)) {
+        return;
+      }
+      // 触发 lucky-canvas 的抽奖逻辑
+      this.$lucky.startCallback();
+    },
+    play: function play() {
+      var _$lucky;
+
+      (_$lucky = this.$lucky).play.apply(_$lucky, arguments);
+    },
+    stop: function stop() {
+      var _$lucky2;
+
+      (_$lucky2 = this.$lucky).stop.apply(_$lucky2, arguments);
+    }
   }
 });
 

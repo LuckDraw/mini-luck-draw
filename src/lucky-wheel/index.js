@@ -39,18 +39,6 @@ Component({
       value: () => {}
     },
   },
-  methods: {
-    toPlay(e) {
-      const ctx = this.ctx
-      ctx.beginPath()
-      ctx.arc(0, 0, this.$lucky.maxBtnRadius, 0, Math.PI * 2, false)
-      if (!ctx.isPointInPath(e.changedTouches[0].x * this.dpr, e.changedTouches[0].y * this.dpr)) {
-        return
-      }
-      // 触发 lucky-canvas 的抽奖逻辑
-      this.$lucky.startCallback()
-    },
-  },
   ready() {
     const query = wx.createSelectorQuery().in(this)
     query.select('#lucky-wheel').fields({
@@ -67,28 +55,45 @@ Component({
       canvas.width = res[0].width * dpr
       canvas.height = res[0].height * dpr
       ctx.scale(dpr, dpr)
-      const $lucky = this.$lucky = new LuckyWheel({
+      this.$lucky = new LuckyWheel({
+        flag: 'MINI-WX',
         ctx,
         width: res[0].width,
         height: res[0].height,
+        rAF: res[0].node.requestAnimationFrame,
+        setInterval,
+        clearInterval,
       }, {
         blocks: data.blocks,
         prizes: data.prizes,
         buttons: data.buttons,
         defaultConfig: data.defaultConfig,
         defaultStyle: data.defaultStyle,
-        start: () => {
-          this.triggerEvent('start')
+        start: (...rest) => {
+          this.triggerEvent('start', ...rest)
         },
-        end: (prize) => {
-          this.triggerEvent('end', prize)
+        end: (...rest) => {
+          this.triggerEvent('end', ...rest)
         },
       })
-      // 覆盖window对象的一些方法
-      $lucky.rAF = res[0].node.requestAnimationFrame
-      $lucky.cAF = res[0].node.cancelAnimationFrame
-      $lucky.setInterval = setInterval
-      $lucky.clearInterval = clearInterval
     })
+  },
+  methods: {
+    toPlay(e) {
+      const ctx = this.ctx
+      ctx.beginPath()
+      ctx.arc(0, 0, this.$lucky.maxBtnRadius, 0, Math.PI * 2, false)
+      if (!ctx.isPointInPath(e.changedTouches[0].x * this.dpr, e.changedTouches[0].y * this.dpr)) {
+        return
+      }
+      // 触发 lucky-canvas 的抽奖逻辑
+      this.$lucky.startCallback()
+    },
+    play(...rest) {
+      this.$lucky.play(...rest)
+    },
+    stop(...rest) {
+      this.$lucky.stop(...rest)
+    },
   },
 })
