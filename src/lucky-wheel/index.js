@@ -1,43 +1,17 @@
-import { LuckyWheel } from 'lucky-canvas'
+import { LuckyWheel } from '../lucky-canvas'
+import { changeUnits } from '../utils'
 
 Component({
   properties: {
-    width: {
-      type: String,
-      value: '600rpx'
-    },
-    height: {
-      type: String,
-      value: '600rpx'
-    },
-    blocks: {
-      type: Array,
-      value: []
-    },
-    prizes: {
-      type: Array,
-      value: []
-    },
-    buttons: {
-      type: Array,
-      value: []
-    },
-    defaultConfig: {
-      type: Object,
-      value: {}
-    },
-    defaultStyle: {
-      type: Object,
-      value: {}
-    },
-    start: {
-      type: Function,
-      value: () => {}
-    },
-    end: {
-      type: Function,
-      value: () => {}
-    },
+    width: { type: String, value: '600rpx' },
+    height: { type: String, value: '600rpx' },
+    blocks: { type: Array, value: [] },
+    prizes: { type: Array, value: [] },
+    buttons: { type: Array, value: [] },
+    defaultConfig: { type: Object, value: {} },
+    defaultStyle: { type: Object, value: {} },
+    start: { type: Function, value: () => {} },
+    end: { type: Function, value: () => {} },
   },
   ready() {
     const query = wx.createSelectorQuery().in(this)
@@ -45,8 +19,7 @@ Component({
       node: true, size: true
     }).exec((res) => {
       if (!res[0] || !res[0].node) {
-        console.error('lucky-canvas 获取不到 canvas 标签')
-        return
+        return console.error('lucky-canvas 获取不到 canvas 标签')
       }
       const canvas = this.canvas = res[0].node
       const dpr = this.dpr = wx.getSystemInfoSync().pixelRatio
@@ -58,11 +31,15 @@ Component({
       this.$lucky = new LuckyWheel({
         flag: 'MINI-WX',
         ctx,
+        dpr,
         width: res[0].width,
         height: res[0].height,
-        rAF: res[0].node.requestAnimationFrame,
+        // rAF: res[0].node.requestAnimationFrame, // 帧动画真机调试会报错!
+        setTimeout,
+        clearTimeout,
         setInterval,
         clearInterval,
+        unitFunc: (num, unit) => changeUnits(num + unit),
       }, {
         blocks: data.blocks,
         prizes: data.prizes,

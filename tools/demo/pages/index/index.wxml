@@ -1,1 +1,27 @@
-<comp></comp>
+<view>
+  <view>456
+    <lucky-wheel
+      id="lucky-wheel"
+      width="500rpx"
+      height="500rpx"
+      blocks="{{wheel.blocks}}"
+      prizes="{{wheel.prizes}}"
+      buttons="{{wheel.buttons}}"
+      defaultStyle="{{wheel.defaultStyle}}"
+      bindstart="wheelStart"
+      bindend="wheelEnd"
+    />
+    <lucky-grid
+      id="lucky-grid"
+      width="500rpx"
+      height="500rpx"
+      rows="{{grid.rows}}"
+      cols="{{grid.cols}}"
+      blocks="{{grid.blocks}}"
+      prizes="{{grid.prizes}}"
+      button="{{grid.button}}"
+      bindstart="gridStart"
+      bindend="gridEnd"
+    />
+  </view>
+</view>

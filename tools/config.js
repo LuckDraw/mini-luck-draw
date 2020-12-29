@@ -49,8 +49,6 @@ module.exports = {
           options: {
             cacheDirectory: true,
           },
-        }, {
-          loader: 'eslint-loader',
         }],
         exclude: /node_modules/
       }, {
@@ -69,8 +67,6 @@ module.exports = {
             appendTsSuffixTo: [/\.vue$/],
             happyPackMode: true,
           },
-        }, {
-          loader: 'eslint-loader',
         }],
       }],
     },
@@ -92,5 +88,5 @@ module.exports = {
     }
   },
 
-  // copy: ['./assets', './utils.js'], // 将会复制到目标目录
+  copy: [], // 将会复制到目标目录
 }

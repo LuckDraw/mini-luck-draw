@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "comp": "../../components/index"
+    "lucky-wheel": "../../components/lucky-wheel/index",
+    "lucky-grid": "../../components/lucky-grid/index"
   }
 }

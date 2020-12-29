@@ -1,57 +1,20 @@
-import { LuckyGrid } from 'lucky-canvas'
+import { LuckyGrid } from '../lucky-canvas'
+import { changeUnits } from '../utils'
 
 Component({
   properties: {
-    width: {
-      type: String,
-      value: '600rpx'
-    },
-    height: {
-      type: String,
-      value: '600rpx'
-    },
-    rows: {
-      type: String,
-      optionalTypes: [Number],
-      value: '3'
-    },
-    cols: {
-      type: String,
-      optionalTypes: [Number],
-      value: '3'
-    },
-    blocks: {
-      type: Array,
-      value: []
-    },
-    prizes: {
-      type: Array,
-      value: []
-    },
-    button: {
-      type: Object,
-      value: {}
-    },
-    defaultConfig: {
-      type: Object,
-      value: {}
-    },
-    defaultStyle: {
-      type: Object,
-      value: {}
-    },
-    activeStyle: {
-      type: Object,
-      value: {}
-    },
-    start: {
-      type: Function,
-      value: () => {}
-    },
-    end: {
-      type: Function,
-      value: () => {}
-    },
+    width: { type: String, value: '600rpx' },
+    height: { type: String, value: '600rpx' },
+    rows: { type: String, optionalTypes: [Number], value: '3' },
+    cols: { type: String, optionalTypes: [Number], value: '3' },
+    blocks: { type: Array, value: [] },
+    prizes: { type: Array, value: [] },
+    button: { type: Object, value: {} },
+    defaultConfig: { type: Object, value: {} },
+    defaultStyle: { type: Object, value: {} },
+    activeStyle: { type: Object, value: {} },
+    start: { type: Function, value: () => {} },
+    end: { type: Function, value: () => {} },
   },
   ready() {
     const query = wx.createSelectorQuery().in(this)
@@ -72,11 +35,15 @@ Component({
       this.$lucky = new LuckyGrid({
         flag: 'MINI-WX',
         ctx,
+        dpr,
         width: res[0].width,
         height: res[0].height,
-        rAF: res[0].node.requestAnimationFrame,
+        // rAF: res[0].node.requestAnimationFrame, // 帧动画真机调试会报错!
+        setTimeout,
+        clearTimeout,
         setInterval,
         clearInterval,
+        unitFunc: (num, unit) => changeUnits(num + unit),
       }, {
         rows: data.rows,
         cols: data.cols,
