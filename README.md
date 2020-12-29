@@ -80,15 +80,15 @@ Page({
   },
   start () {
     // 获取抽奖组件实例
-    const child = this.selectComponent('#myLucky')
+    const $lucky = this.selectComponent('#myLucky')
     // 调用play方法开始旋转
-    child.$lucky.play()
+    $lucky.play()
     // 用定时器模拟请求接口
     setTimeout(() => {
       // 3s 后得到中奖索引
       const index = Math.random() * 6 >> 0
       // 调用stop方法然后缓慢停止
-      child.$lucky.stop(index)
+      $lucky.stop(index)
     }, 3000)
   },
   end (event) {
