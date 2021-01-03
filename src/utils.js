@@ -1,5 +1,4 @@
 export const rpx2px = (value) => {
-  console.log(123)
   if (typeof value === 'string') value = Number(value.replace(/[a-z]*/g, ''))
   return wx.getSystemInfoSync().windowWidth / 750 * value
 }
@@ -19,4 +18,12 @@ export const changeUnits = (value) => {
     }
     return num
   }))
+}
+
+export const resolveImage = (e, img, canvas) => {
+  let imgObj = canvas.createImage()
+  imgObj.onload = () => {
+    img.$resolve(imgObj)
+  }
+  imgObj.src = img.src
 }

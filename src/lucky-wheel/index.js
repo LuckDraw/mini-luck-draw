@@ -1,5 +1,5 @@
-import { LuckyWheel } from '../lucky-canvas'
-import { changeUnits } from '../utils'
+import { LuckyWheel } from '../../node_modules/lucky-canvas/dist/lucky-canvas.cjs.min'
+import { changeUnits, resolveImage } from '../utils'
 
 Component({
   properties: {
@@ -13,9 +13,11 @@ Component({
     start: { type: Function, value: () => {} },
     end: { type: Function, value: () => {} },
   },
+  data: {
+    isShow: false,
+  },
   ready() {
-    const query = wx.createSelectorQuery().in(this)
-    query.select('#lucky-wheel').fields({
+    wx.createSelectorQuery().in(this).select('#lucky-wheel').fields({
       node: true, size: true
     }).exec((res) => {
       if (!res[0] || !res[0].node) {
@@ -34,7 +36,7 @@ Component({
         dpr,
         width: res[0].width,
         height: res[0].height,
-        // rAF: res[0].node.requestAnimationFrame, // 帧动画真机调试会报错!
+        // rAF: canvas.requestAnimationFrame, // 帧动画真机调试会报错!
         setTimeout,
         clearTimeout,
         setInterval,
@@ -53,9 +55,16 @@ Component({
           this.triggerEvent('end', ...rest)
         },
       })
+      // 为了保证 onload 回调准确
+      this.setData({ isShow: true })
     })
   },
   methods: {
+    imgBindload (e) {
+      const { name, index, i } = e.currentTarget.dataset
+      const img = this.data[name][index].imgs[i]
+      resolveImage(e, img, this.canvas)
+    },
     toPlay(e) {
       const ctx = this.ctx
       ctx.beginPath()

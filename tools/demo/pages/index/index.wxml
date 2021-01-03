@@ -1,5 +1,5 @@
 <view>
-  <view>456
+  <view>4563
     <lucky-wheel
       id="lucky-wheel"
       width="500rpx"

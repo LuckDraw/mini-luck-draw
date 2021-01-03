@@ -1,7 +1,23 @@
-<canvas
-  type="2d"
-  id="lucky-grid"
-  canvas-id="lucky-grid"
-  bindtouchstart="toPlay"
-  style="width: {{width}}; height: {{height}}"
-></canvas>
+<view>
+  <canvas
+    type="2d"
+    id="lucky-grid"
+    canvas-id="lucky-grid"
+    bindtouchstart="toPlay"
+    style="width: {{width}}; height: {{height}}"
+  ></canvas>
+  <view>
+    <view wx:if="{{isShow}}" wx:for="{{prizes}}" wx:key="index" wx:for-index="index" wx:for-item="prize" style="visibility: hidden; height: 0">
+      <view wx:for="{{prize.imgs}}" wx:key="i" wx:for-index="i" wx:for-item="img">
+        <image src="{{img.src}}" data-name="prizes" data-index="{{index}}" data-i="{{i}}" bindload="imgBindload"></image>
+      </view>
+    </view>
+  </view>
+  <view>
+    <view wx:if="{{isShow && button}}" style="visibility: hidden; height: 0">
+      <view wx:for="{{button.imgs}}" wx:key="i" wx:for-index="i" wx:for-item="img">
+        <image src="{{img.src}}" data-name="button" data-index="{{index}}" data-i="{{i}}" bindload="imgBindloadByBtn"></image>
+      </view>
+    </view>
+  </view>
+</view>
