@@ -45,6 +45,18 @@ Page({
       button: { x: 1, y: 1, col: 2, fonts: [{ text: '抽奖按钮', top: 20 }], imgs: [{ src: 'https://100px.net/assets/img/4.1349538d.png', width: '50%' }] },
     }
   },
+  onReady () {
+    // [
+    //   { title: '1元红包1', background: '#f9e3bb', fonts: [{ text: '1元红包1', top: '18%' }], imgs: [{ src: 'https://100px.net/assets/img/4.1349538d.png', width: '50%' }] },
+    //   { title: '100元红包', background: '#f8d384', fonts: [{ text: '100元红包', top: '18%' }], imgs: [{ src: 'https://100px.net/assets/img/4.1349538d.png', width: '50%' }] },
+    //   { title: '0.5元红包', background: '#f9e3bb', fonts: [{ text: '0.5元红包', top: '18%' }] },
+    //   { title: '2元红包', background: '#f8d384', fonts: [{ text: '2元红包', top: '18%' }] },
+    //   { title: '10元红包', background: '#f9e3bb', fonts: [{ text: '10元红包', top: '18%' }] },
+    //   { title: '50元红包', background: '#f8d384', fonts: [{ text: '50元红包', top: '18%' }] },
+    // ].forEach(_ => {
+    //   this.data.prizes.push(_)
+    // })
+  },
   wheelStart () {
     // 获取抽奖组件实例
     const child = this.selectComponent('#lucky-wheel')

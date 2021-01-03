@@ -19,6 +19,20 @@ Component({
   data: {
     isShow: false,
   },
+  observers: {
+    'prizes.**': function(newData, oldData) {
+      if (this.$lucky) {
+        this.$lucky.prizes = []
+        this.$lucky.prizes = newData
+      }
+    },
+    'button.**': function(newData, oldData) {
+      if (this.$lucky) {
+        this.$lucky.button = []
+        this.$lucky.button = newData
+      }
+    },
+  },
   ready() {
     wx.createSelectorQuery().in(this).select('#lucky-grid').fields({
       node: true, size: true

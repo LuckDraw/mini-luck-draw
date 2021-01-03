@@ -176,6 +176,20 @@ Component({
   data: {
     isShow: false
   },
+  observers: {
+    'prizes.**': function prizes(newData, oldData) {
+      if (this.$lucky) {
+        this.$lucky.prizes = [];
+        this.$lucky.prizes = newData;
+      }
+    },
+    'button.**': function button(newData, oldData) {
+      if (this.$lucky) {
+        this.$lucky.button = [];
+        this.$lucky.button = newData;
+      }
+    }
+  },
   ready: function ready() {
     var _this = this;
 

@@ -16,6 +16,20 @@ Component({
   data: {
     isShow: false,
   },
+  observers: {
+    'prizes.**': function(newData, oldData) {
+      if (this.$lucky) {
+        this.$lucky.prizes = []
+        this.$lucky.prizes = newData
+      }
+    },
+    'buttons.**': function(newData, oldData) {
+      if (this.$lucky) {
+        this.$lucky.buttons = []
+        this.$lucky.buttons = newData
+      }
+    },
+  },
   ready() {
     wx.createSelectorQuery().in(this).select('#lucky-wheel').fields({
       node: true, size: true
