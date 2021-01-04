@@ -1,11 +1,11 @@
 <view>
-  <view>4563
+  <view>456
     <lucky-wheel
       id="lucky-wheel"
       width="500rpx"
       height="500rpx"
       blocks="{{wheel.blocks}}"
-      prizes="{{wheel.prizes}}"
+      prizes="{{prizes}}"
       buttons="{{wheel.buttons}}"
       defaultStyle="{{wheel.defaultStyle}}"
       bindstart="wheelStart"

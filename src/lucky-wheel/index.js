@@ -55,6 +55,9 @@ Component({
         clearTimeout,
         setInterval,
         clearInterval,
+        beforeInit: function () {
+          ctx.translate(-this.Radius, -this.Radius)
+        },
         unitFunc: (num, unit) => changeUnits(num + unit),
       }, {
         blocks: data.blocks,

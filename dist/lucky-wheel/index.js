@@ -213,6 +213,9 @@ Component({
         clearTimeout: clearTimeout,
         setInterval: setInterval,
         clearInterval: clearInterval,
+        beforeInit: function beforeInit() {
+          ctx.translate(-this.Radius, -this.Radius);
+        },
         unitFunc: function unitFunc(num, unit) {
           return (0, _utils.changeUnits)(num + unit);
         }
