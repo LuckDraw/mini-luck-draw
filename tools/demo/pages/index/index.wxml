@@ -19,7 +19,7 @@
       cols="{{grid.cols}}"
       blocks="{{grid.blocks}}"
       prizes="{{grid.prizes}}"
-      button="{{grid.button}}"
+      buttons="{{grid.buttons}}"
       bindstart="gridStart"
       bindend="gridEnd"
     />

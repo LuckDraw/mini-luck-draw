@@ -7,7 +7,7 @@ Page({
         fontSize: '14px'
       },
       blocks: [
-        { padding: '20rpx', background: '#d64737' }
+        { padding: '20rpx', background: '#d64737', imgs: [{ src: 'https://100px.net/assets/img/4.1349538d.png', width: '100%', rotate: true }] }
       ],
       buttons: [
         { radius: '50px', background: '#d64737' },
@@ -24,7 +24,7 @@ Page({
       cols: 4,
       blocks: [{ padding: '5px', background: '#ff4a4c', borderRadius: 10 }],
       prizes: [
-        { x: 0, y: 0, fonts: [{ text: '0元', top: 20 }], imgs: [{ src: 'https://100px.net/assets/img/4.1349538d.png', width: '50%' }] },
+        { x: 0, y: 0, fonts: [{ text: '0元', top: 20 }], imgs: [{ src: 'https://100px.net/assets/img/4.1349538d.png', activeSrc: 'https://100px.net/assets/img/00.a8cd98c2.png', width: '50%' }] },
         { x: 1, y: 0, fonts: [{ text: '1元', top: 20 }] },
         { x: 2, y: 0, fonts: [{ text: '2元', top: 20 }] },
         { x: 3, y: 0, fonts: [{ text: '3元', top: 20 }] },
@@ -35,7 +35,7 @@ Page({
         { x: 0, y: 2, fonts: [{ text: '8元', top: 20 }] },
         { x: 0, y: 1, fonts: [{ text: '9元', top: 20 }] }
       ],
-      button: { x: 1, y: 1, col: 2, fonts: [{ text: '抽奖按钮', top: 20 }], imgs: [{ src: 'https://100px.net/assets/img/4.1349538d.png', width: '50%' }] },
+      buttons: [{ x: 1, y: 1, col: 2, fonts: [{ text: '抽奖按钮', top: 20 }], imgs: [{ src: 'https://100px.net/assets/img/4.1349538d.png', width: '50%' }] }],
     }
   },
   onReady () {

@@ -17,17 +17,14 @@ Component({
     isShow: false,
   },
   observers: {
+    'blocks.**': function(newData, oldData) {
+      this.$lucky && (this.$lucky.blocks = newData)
+    },
     'prizes.**': function(newData, oldData) {
-      if (this.$lucky) {
-        this.$lucky.prizes = []
-        this.$lucky.prizes = newData
-      }
+      this.$lucky && (this.$lucky.prizes = newData)
     },
     'buttons.**': function(newData, oldData) {
-      if (this.$lucky) {
-        this.$lucky.buttons = []
-        this.$lucky.buttons = newData
-      }
+      this.$lucky && (this.$lucky.buttons = newData)
     },
   },
   ready() {

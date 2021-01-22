@@ -9,7 +9,7 @@ Component({
     cols: { type: String, optionalTypes: [Number], value: '3' },
     blocks: { type: Array, value: [] },
     prizes: { type: Array, value: [] },
-    button: { type: Object, value: {} },
+    buttons: { type: Array, value: [] },
     defaultConfig: { type: Object, value: {} },
     defaultStyle: { type: Object, value: {} },
     activeStyle: { type: Object, value: {} },
@@ -21,16 +21,10 @@ Component({
   },
   observers: {
     'prizes.**': function(newData, oldData) {
-      if (this.$lucky) {
-        this.$lucky.prizes = []
-        this.$lucky.prizes = newData
-      }
+      this.$lucky && (this.$lucky.prizes = newData)
     },
-    'button.**': function(newData, oldData) {
-      if (this.$lucky) {
-        this.$lucky.button = []
-        this.$lucky.button = newData
-      }
+    'buttons.**': function(newData, oldData) {
+      this.$lucky && (this.$lucky.buttons = newData)
     },
   },
   ready() {
@@ -65,7 +59,7 @@ Component({
         cols: data.cols,
         blocks: data.blocks,
         prizes: data.prizes,
-        button: data.button,
+        buttons: data.buttons,
         defaultConfig: data.defaultConfig,
         defaultStyle: data.defaultStyle,
         activeStyle: data.activeStyle,
@@ -86,27 +80,28 @@ Component({
       const img = this.data[name][index].imgs[i]
       resolveImage(e, img, this.canvas)
     },
-    imgBindloadByBtn (e) {
+    imgBindloadActive (e) {
       const { name, index, i } = e.currentTarget.dataset
-      const img = this.data[name].imgs[i]
-      resolveImage(e, img, this.canvas)
+      const img = this.data[name][index].imgs[i]
+      resolveImage(e, img, this.canvas, 'activeSrc', '$activeResolve')
     },
     toPlay(e) {
       const ctx = this.ctx
-      const button = this.data.button
-      if (!button) return
-      ctx.beginPath()
-      ctx.rect(...this.$lucky.getGeometricProperty([
-        button.x,
-        button.y,
-        button.col || 1,
-        button.row || 1
-      ]))
-      if (!ctx.isPointInPath(e.changedTouches[0].x * this.dpr, e.changedTouches[0].y * this.dpr)) {
-        return
-      }
-      // 触发 lucky-canvas 的抽奖逻辑
-      this.$lucky.startCallback()
+      this.data.buttons.forEach(btn => {
+        if (!btn) return
+        ctx.beginPath()
+        ctx.rect(...this.$lucky.getGeometricProperty([
+          btn.x,
+          btn.y,
+          btn.col || 1,
+          btn.row || 1
+        ]))
+        if (!ctx.isPointInPath(e.changedTouches[0].x * this.dpr, e.changedTouches[0].y * this.dpr)) {
+          return
+        }
+        // 触发 lucky-canvas 的抽奖逻辑
+        this.$lucky.startCallback()
+      })
     },
     play(...rest) {
       this.$lucky.play(...rest)

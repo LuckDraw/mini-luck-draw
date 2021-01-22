@@ -20,10 +20,10 @@ export const changeUnits = (value) => {
   }))
 }
 
-export const resolveImage = (e, img, canvas) => {
+export const resolveImage = (e, img, canvas, srcName = 'src', resolveName = '$resolve') => {
   let imgObj = canvas.createImage()
   imgObj.onload = () => {
-    img.$resolve(imgObj)
+    img[resolveName](imgObj)
   }
-  imgObj.src = img.src
+  imgObj.src = img[srcName]
 }
