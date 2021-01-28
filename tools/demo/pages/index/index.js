@@ -3,19 +3,20 @@ Page({
     prizes: [],
     wheel: {
       defaultStyle: {
-        fontColor: '#d64737',
-        fontSize: '14px'
+        fontColor: '#ff625b',
+        fontSize: '16px'
       },
       blocks: [
-        { padding: '20rpx', background: '#d64737', imgs: [{ src: 'https://100px.net/assets/img/4.1349538d.png', width: '100%', rotate: true }] }
+        { padding: '20rpx', background: '#ffc27a' },
+        { padding: '10rpx', background: '#ff4a4c' },
       ],
       buttons: [
-        { radius: '50px', background: '#d64737' },
+        { radius: '50px', background: '#ff4a4c' },
         { radius: '45px', background: '#fff' },
         { radius: '41px', background: '#f6c66f', pointer: true },
         {
           radius: '35px', background: '#ffdea0',
-          fonts: [{ text: '开始\n抽奖', fontSize: '18px', top: -18 }], imgs: [{ src: 'https://100px.net/assets/img/4.1349538d.png', width: '50%' }]
+          imgs: [{ src: 'https://100px.net/assets/img/button.2f4ac3e9.png', width: '70%', top: '-55%' }]
         }
       ],
     },
@@ -43,14 +44,15 @@ Page({
       prizes: []
     });
     setTimeout(() => {
-      
     [
-      { title: '1元红包1', background: '#f9e3bb', fonts: [{ text: '1元红包1', top: '18%' }], imgs: [{ src: 'https://100px.net/assets/img/4.1349538d.png', width: '50%' }] },
-      { title: '100元红包', background: '#f8d384', fonts: [{ text: '100元红包', top: '18%' }], imgs: [{ src: 'https://100px.net/assets/img/4.1349538d.png', width: '50%' }] },
-      { title: '0.5元红包', background: '#f9e3bb', fonts: [{ text: '0.5元红包', top: '18%' }] },
-      { title: '2元红包', background: '#f8d384', fonts: [{ text: '2元红包', top: '18%' }] },
-      { title: '10元红包', background: '#f9e3bb', fonts: [{ text: '10元红包', top: '18%' }] },
-      { title: '50元红包', background: '#f8d384', fonts: [{ text: '50元红包', top: '18%' }] },
+      { title: '1元红包', background: '#ffd185', fonts: [{ text: '1元红包', top: '10%' }], imgs: [{ src: 'https://100px.net/assets/img/0.efbe4dff.png', width: '35%', top: '35%' }] },
+      { title: '100元红包', background: '#f9e3bb', fonts: [{ text: '100元红包', top: '10%' }], imgs: [{ src: 'https://100px.net/assets/img/1.de299995.png', width: '35%', top: '35%' }] },
+      { title: '0.5元红包', background: '#ffd185', fonts: [{ text: '0.5元红包', top: '10%' }], imgs: [{ src: 'https://100px.net/assets/img/2.8f1949c9.png', width: '35%', top: '35%' }] },
+      { title: '2元红包', background: '#f9e3bb', fonts: [{ text: '2元红包', top: '10%' }], imgs: [{ src: 'https://100px.net/assets/img/3.9307595d.png', width: '35%', top: '35%' }] },
+      { title: '10元红包', background: '#ffd185', fonts: [{ text: '10元红包', top: '10%' }], imgs: [{ src: 'https://100px.net/assets/img/4.1349538d.png', width: '35%', top: '35%' }] },
+      { title: '50元红包', background: '#f9e3bb', fonts: [{ text: '50元红包', top: '10%' }], imgs: [{ src: 'https://100px.net/assets/img/5.b92ceb2f.png', width: '35%', top: '35%' }] },
+      { title: '0.3元红包', background: '#ffd185', fonts: [{ text: '0.3元红包', top: '10%' }], imgs: [{ src: 'https://100px.net/assets/img/6.02483a09.png', width: '35%', top: '35%' }] },
+      { title: '5元红包', background: '#f9e3bb', fonts: [{ text: '5元红包', top: '10%' }], imgs: [{ src: 'https://100px.net/assets/img/7.48cda152.png', width: '35%', top: '35%' }] },
     ].forEach(_ => {
       this.setData({
         prizes: [...this.data.prizes, _]
