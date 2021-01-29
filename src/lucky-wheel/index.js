@@ -81,9 +81,11 @@ Component({
     },
     toPlay(e) {
       const ctx = this.ctx
+      const { x, y } = e.changedTouches[0]
+      this.$lucky.drawEasterEggs(x * this.dpr, y * this.dpr)
       ctx.beginPath()
       ctx.arc(0, 0, this.$lucky.maxBtnRadius, 0, Math.PI * 2, false)
-      if (!ctx.isPointInPath(e.changedTouches[0].x * this.dpr, e.changedTouches[0].y * this.dpr)) {
+      if (!ctx.isPointInPath(x * this.dpr, y * this.dpr)) {
         return
       }
       // 触发 lucky-canvas 的抽奖逻辑
