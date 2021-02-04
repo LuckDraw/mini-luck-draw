@@ -82,7 +82,6 @@ Component({
     toPlay(e) {
       const ctx = this.ctx
       const { x, y } = e.changedTouches[0]
-      this.$lucky.drawEasterEggs(x * this.dpr, y * this.dpr)
       ctx.beginPath()
       ctx.arc(0, 0, this.$lucky.maxBtnRadius, 0, Math.PI * 2, false)
       if (!ctx.isPointInPath(x * this.dpr, y * this.dpr)) {

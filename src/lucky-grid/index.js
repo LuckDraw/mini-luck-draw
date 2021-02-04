@@ -88,7 +88,6 @@ Component({
     toPlay(e) {
       const ctx = this.ctx
       const { x, y } = e.changedTouches[0]
-      this.$lucky.drawEasterEggs(x * this.dpr, y * this.dpr)
       this.data.buttons.forEach(btn => {
         if (!btn) return
         ctx.beginPath()
