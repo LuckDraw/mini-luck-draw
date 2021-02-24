@@ -205,7 +205,7 @@ Component({
       canvas.height = res[0].height * dpr;
       ctx.scale(dpr, dpr);
       _this.$lucky = new _luckyCanvasCjs.LuckyGrid({
-        flag: 'MINI-WX',
+        flag: 'MP-WX',
         ctx: ctx,
         dpr: dpr,
         width: res[0].width,

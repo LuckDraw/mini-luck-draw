@@ -26,14 +26,38 @@ Page({
     });
     setTimeout(() => {
     [
-      { title: '1元红包', background: '#ffd185', fonts: [{ text: '1元红包', top: '10%' }], imgs: [{ src: imgs['0.png'], width: '35%', top: '35%' }] },
-      { title: '100元红包', background: '#f9e3bb', fonts: [{ text: '100元红包', top: '10%' }], imgs: [{ src: imgs['1.png'], width: '35%', top: '35%' }] },
-      { title: '0.5元红包', background: '#ffd185', fonts: [{ text: '0.5元红包', top: '10%' }], imgs: [{ src: imgs['2.png'], width: '35%', top: '35%' }] },
-      { title: '2元红包', background: '#f9e3bb', fonts: [{ text: '2元红包', top: '10%' }], imgs: [{ src: imgs['3.png'], width: '35%', top: '35%' }] },
-      { title: '10元红包', background: '#ffd185', fonts: [{ text: '10元红包', top: '10%' }], imgs: [{ src: imgs['4.png'], width: '35%', top: '35%' }] },
-      { title: '50元红包', background: '#f9e3bb', fonts: [{ text: '50元红包', top: '10%' }], imgs: [{ src: imgs['5.png'], width: '35%', top: '35%' }] },
-      { title: '0.3元红包', background: '#ffd185', fonts: [{ text: '0.3元红包', top: '10%' }], imgs: [{ src: imgs['6.png'], width: '35%', top: '35%' }] },
-      { title: '5元红包', background: '#f9e3bb', fonts: [{ text: '5元红包', top: '10%' }], imgs: [{ src: imgs['7.png'], width: '35%', top: '35%' }] },
+      {
+        title: '1元红包', background: '#ffd185', fonts: [{ text: '1元红包', top: '10%' }],
+        imgs: [{ src: imgs['0.png'], width: '35%', top: '35%' }]
+      },
+      {
+        title: '100元红包', background: '#f9e3bb', fonts: [{ text: '100元红包', top: '10%' }],
+        imgs: [{ src: imgs['1.png'], width: '35%', top: '35%' }]
+      },
+      {
+        title: '0.5元红包', background: '#ffd185', fonts: [{ text: '0.5元红包', top: '10%' }],
+        imgs: [{ src: imgs['2.png'], width: '35%', top: '35%' }]
+      },
+      {
+        title: '2元红包', background: '#f9e3bb', fonts: [{ text: '2元红包', top: '10%' }],
+        imgs: [{ src: imgs['3.png'], width: '35%', top: '35%' }]
+      },
+      {
+        title: '10元红包', background: '#ffd185', fonts: [{ text: '10元红包', top: '10%' }],
+        imgs: [{ src: imgs['4.png'], width: '35%', top: '35%' }]
+      },
+      {
+        title: '50元红包', background: '#f9e3bb', fonts: [{ text: '50元红包', top: '10%' }],
+        imgs: [{ src: imgs['5.png'], width: '35%', top: '35%' }]
+      },
+      {
+        title: '0.3元红包', background: '#ffd185', fonts: [{ text: '0.3元红包', top: '10%' }],
+        imgs: [{ src: imgs['6.png'], width: '35%', top: '35%' }]
+      },
+      {
+        title: '5元红包', background: '#f9e3bb', fonts: [{ text: '5元红包', top: '10%' }],
+        imgs: [{ src: imgs['7.png'], width: '35%', top: '35%' }]
+      },
     ].forEach(_ => {
       this.setData({
         prizes: [...this.data.prizes, _]

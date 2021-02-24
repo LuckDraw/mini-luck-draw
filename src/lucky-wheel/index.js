@@ -42,7 +42,7 @@ Component({
       canvas.height = res[0].height * dpr
       ctx.scale(dpr, dpr)
       this.$lucky = new LuckyWheel({
-        flag: 'MINI-WX',
+        flag: 'MP-WX',
         ctx,
         dpr,
         width: res[0].width,
@@ -53,7 +53,7 @@ Component({
         setInterval,
         clearInterval,
         beforeInit: function () {
-          ctx.translate(-this.Radius, -this.Radius)
+          // ctx.translate(-this.Radius, -this.Radius)
         },
         unitFunc: (num, unit) => changeUnits(num + unit),
       }, {
