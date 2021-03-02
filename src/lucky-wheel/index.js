@@ -52,8 +52,14 @@ Component({
         clearTimeout,
         setInterval,
         clearInterval,
+        beforeCreate: function () {
+          const Radius = Math.min(this.config.width, this.config.height) / 2
+          // 设置坐标轴
+          ctx.translate(Radius, Radius)
+        },
         beforeInit: function () {
-          // ctx.translate(-this.Radius, -this.Radius)
+          // 重置坐标轴
+          ctx.translate(-this.Radius, -this.Radius)
         },
         unitFunc: (num, unit) => changeUnits(num + unit),
       }, {

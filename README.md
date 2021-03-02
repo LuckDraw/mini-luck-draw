@@ -29,7 +29,7 @@
 
 ## 官方文档
 
-> 中文：[https://100px.net/document/wx.html](https://100px.net/document/wx.html)
+> 中文：[https://100px.net/usage/wx.html](https://100px.net/usage/wx.html)
 
 <br />
 
