@@ -1,6 +1,8 @@
+const windowWidth = wx.getSystemInfoSync().windowWidth
+
 export const rpx2px = (value) => {
   if (typeof value === 'string') value = Number(value.replace(/[a-z]*/g, ''))
-  return wx.getSystemInfoSync().windowWidth / 750 * value
+  return windowWidth / 750 * value
 }
 
 export const changeUnits = (value) => {
