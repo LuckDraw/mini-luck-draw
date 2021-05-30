@@ -1,5 +1,5 @@
 import { LuckyGrid } from '../../node_modules/lucky-canvas/dist/lucky-canvas.cjs.min'
-import { changeUnits, resolveImage } from '../utils'
+import { changeUnits, resolveImage, getImage } from '../utils'
 
 Component({
   properties: {
@@ -109,6 +109,9 @@ Component({
     },
     stop(...rest) {
       this.$lucky.stop(...rest)
+    },
+    getImage () {
+      return getImage.call(this)
     },
   },
 })

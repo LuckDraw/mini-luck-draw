@@ -29,3 +29,13 @@ export const resolveImage = (e, img, canvas, srcName = 'src', resolveName = '$re
   }
   imgObj.src = img[srcName]
 }
+
+export function getImage () {
+  return new Promise((resolve, reject) => {
+    wx.canvasToTempFilePath({
+      canvas: this.canvas,
+      success: res => resolve(res),
+      fail: err => reject(err)
+    });
+  })
+}
