@@ -1,6 +1,7 @@
 import imgs from '../ymc/img'
 Page({
   data: {
+    maskShow: false,
     prizes: [],
     blocks: [
       { padding: '15px', background: '#ffc27a', borderRadius: 28 },
@@ -72,11 +73,15 @@ Page({
     }, 3000)
   },
   gridEnd (event) {
+    this.setData({ maskShow: true })
     // 中奖奖品详情
     wx.showModal({
       title: '提示',
       content: '恭喜你获得大奖: ' + event.detail.name,
       success (res) {}
     })
-  }
+  },
+  maskHidden () {
+    this.setData({ maskShow: false })
+  },
 })

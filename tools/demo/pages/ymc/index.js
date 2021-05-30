@@ -1,6 +1,7 @@
 import imgs from './img'
 Page({
   data: {
+    maskShow: false,
     prizes: [],
     defaultStyle: {
       fontColor: '#ff625b',
@@ -80,10 +81,14 @@ Page({
   },
   wheelEnd (event) {
     // 中奖奖品详情
+    this.setData({ maskShow: true })
     wx.showModal({
       title: '提示',
       content: '恭喜你获得大奖: ' + event.detail.title,
       success (res) {}
     })
+  },
+  maskHidden () {
+    this.setData({ maskShow: false })
   },
 })

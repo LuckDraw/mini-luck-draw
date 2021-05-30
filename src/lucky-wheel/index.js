@@ -15,6 +15,8 @@ Component({
   },
   data: {
     isShow: false,
+    luckyImg: '',
+    showCanvas: true,
   },
   observers: {
     'blocks.**': function(newData, oldData) {
@@ -73,6 +75,9 @@ Component({
         },
         end: (...rest) => {
           this.triggerEvent('end', ...rest)
+          getImage.call(this).then(res => {
+            this.setData({ luckyImg: res.tempFilePath })
+          })
         },
       })
       // 为了保证 onload 回调准确
@@ -85,14 +90,30 @@ Component({
       const img = this.data[name][index].imgs[i]
       resolveImage(e, img, this.canvas)
     },
-    toPlay(e) {
-      const ctx = this.ctx
+    luckyImgLoad () {
+      this.showCanvas = false
+    },
+    handleClickOfImg (e) {
+      const { clientX: x, clientY: y } = e.changedTouches[0]
+      wx.createSelectorQuery().in(this).select('.lucky-img').fields({
+        rect: true
+      }).exec((res) => {
+        const { left, top } = res[0]
+        this.toPlay(x - left, y - top)
+      })
+    },
+    handleClickOfCanvas (e) {
       const { x, y } = e.changedTouches[0]
+      this.toPlay(x, y)
+    },
+    toPlay (x, y) {
+      const ctx = this.ctx
       ctx.beginPath()
       ctx.arc(0, 0, this.$lucky.maxBtnRadius, 0, Math.PI * 2, false)
-      if (!ctx.isPointInPath(x * this.dpr, y * this.dpr)) {
-        return
-      }
+      if (!ctx.isPointInPath(x * this.dpr, y * this.dpr)) return
+      // 隐藏图片并显示canvas
+      this.showCanvas = true
+      this.setData({ luckyImg: '' })
       // 触发 lucky-canvas 的抽奖逻辑
       this.$lucky.startCallback()
     },
@@ -101,9 +122,6 @@ Component({
     },
     stop(...rest) {
       this.$lucky.stop(...rest)
-    },
-    getImage () {
-      return getImage.call(this)
     },
   },
 })
