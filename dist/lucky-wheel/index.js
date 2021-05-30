@@ -192,7 +192,9 @@ Component({
     end: { type: Function, value: function value() {} }
   },
   data: {
-    isShow: false
+    isShow: false,
+    luckyImg: '',
+    showCanvas: true
   },
   observers: {
     'blocks.**': function blocks(newData, oldData) {
@@ -263,6 +265,9 @@ Component({
           }
 
           _this.triggerEvent.apply(_this, ['end'].concat(rest));
+          _utils.getImage.call(_this).then(function (res) {
+            _this.setData({ luckyImg: res.tempFilePath });
+          });
         }
       });
       // 为了保证 onload 回调准确
@@ -280,17 +285,41 @@ Component({
       var img = this.data[name][index].imgs[i];
       (0, _utils.resolveImage)(e, img, this.canvas);
     },
-    toPlay: function toPlay(e) {
-      var ctx = this.ctx;
-      var _e$changedTouches$ = e.changedTouches[0],
-          x = _e$changedTouches$.x,
-          y = _e$changedTouches$.y;
+    luckyImgLoad: function luckyImgLoad() {
+      this.showCanvas = false;
+    },
+    handleClickOfImg: function handleClickOfImg(e) {
+      var _this2 = this;
 
+      var _e$changedTouches$ = e.changedTouches[0],
+          x = _e$changedTouches$.clientX,
+          y = _e$changedTouches$.clientY;
+
+      wx.createSelectorQuery().in(this).select('.lucky-img').fields({
+        rect: true
+      }).exec(function (res) {
+        var _res$ = res[0],
+            left = _res$.left,
+            top = _res$.top;
+
+        _this2.toPlay(x - left, y - top);
+      });
+    },
+    handleClickOfCanvas: function handleClickOfCanvas(e) {
+      var _e$changedTouches$2 = e.changedTouches[0],
+          x = _e$changedTouches$2.x,
+          y = _e$changedTouches$2.y;
+
+      this.toPlay(x, y);
+    },
+    toPlay: function toPlay(x, y) {
+      var ctx = this.ctx;
       ctx.beginPath();
       ctx.arc(0, 0, this.$lucky.maxBtnRadius, 0, Math.PI * 2, false);
-      if (!ctx.isPointInPath(x * this.dpr, y * this.dpr)) {
-        return;
-      }
+      if (!ctx.isPointInPath(x * this.dpr, y * this.dpr)) return;
+      // 隐藏图片并显示canvas
+      this.showCanvas = true;
+      this.setData({ luckyImg: '' });
       // 触发 lucky-canvas 的抽奖逻辑
       this.$lucky.startCallback();
     },
@@ -303,9 +332,6 @@ Component({
       var _$lucky2;
 
       (_$lucky2 = this.$lucky).stop.apply(_$lucky2, arguments);
-    },
-    getImage: function getImage() {
-      return _utils.getImage.call(this);
     }
   }
 });

@@ -196,7 +196,9 @@ Component({
     end: { type: Function, value: function value() {} }
   },
   data: {
-    isShow: false
+    isShow: false,
+    luckyImg: '',
+    showCanvas: true
   },
   observers: {
     'prizes.**': function prizes(newData, oldData) {
@@ -259,6 +261,9 @@ Component({
           }
 
           _this.triggerEvent.apply(_this, ['end'].concat(rest));
+          _utils.getImage.call(_this).then(function (res) {
+            _this.setData({ luckyImg: res.tempFilePath });
+          });
         }
       });
       // 为了保证 onload 回调准确
@@ -285,23 +290,47 @@ Component({
       var img = this.data[name][index].imgs[i];
       (0, _utils.resolveImage)(e, img, this.canvas, 'activeSrc', '$activeResolve');
     },
-    toPlay: function toPlay(e) {
+    luckyImgLoad: function luckyImgLoad() {
+      this.showCanvas = false;
+    },
+    handleClickOfImg: function handleClickOfImg(e) {
       var _this2 = this;
 
-      var ctx = this.ctx;
       var _e$changedTouches$ = e.changedTouches[0],
-          x = _e$changedTouches$.x,
-          y = _e$changedTouches$.y;
+          x = _e$changedTouches$.clientX,
+          y = _e$changedTouches$.clientY;
 
+      wx.createSelectorQuery().in(this).select('.lucky-img').fields({
+        rect: true
+      }).exec(function (res) {
+        var _res$ = res[0],
+            left = _res$.left,
+            top = _res$.top;
+
+        _this2.toPlay(x - left, y - top);
+      });
+    },
+    handleClickOfCanvas: function handleClickOfCanvas(e) {
+      var _e$changedTouches$2 = e.changedTouches[0],
+          x = _e$changedTouches$2.x,
+          y = _e$changedTouches$2.y;
+
+      this.toPlay(x, y);
+    },
+    toPlay: function toPlay(x, y) {
+      var _this3 = this;
+
+      var ctx = this.ctx;
       this.data.buttons.forEach(function (btn) {
         if (!btn) return;
         ctx.beginPath();
-        ctx.rect.apply(ctx, _this2.$lucky.getGeometricProperty([btn.x, btn.y, btn.col || 1, btn.row || 1]));
-        if (!ctx.isPointInPath(x * _this2.dpr, y * _this2.dpr)) {
-          return;
-        }
+        ctx.rect.apply(ctx, _this3.$lucky.getGeometricProperty([btn.x, btn.y, btn.col || 1, btn.row || 1]));
+        if (!ctx.isPointInPath(x * _this3.dpr, y * _this3.dpr)) return;
+        // 隐藏图片并显示canvas
+        _this3.showCanvas = true;
+        _this3.setData({ luckyImg: '' });
         // 触发 lucky-canvas 的抽奖逻辑
-        _this2.$lucky.startCallback();
+        _this3.$lucky.startCallback();
       });
     },
     play: function play() {
@@ -313,9 +342,6 @@ Component({
       var _$lucky2;
 
       (_$lucky2 = this.$lucky).stop.apply(_$lucky2, arguments);
-    },
-    getImage: function getImage() {
-      return _utils.getImage.call(this);
     }
   }
 });
